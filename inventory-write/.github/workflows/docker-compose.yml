@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: inventory
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+  kafka:
+    image: bitnami/kafka:latest
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    ports:
+      - "2181:2181"
+  app:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+      target: builder
+    environment:
+      DATABASE_URL: postgres://user:password@postgres:5432/inventory?sslmode=disable
+      KAFKA_BROKER: kafka:9092
+      KAFKA_TOPIC: stock-events
+      PORT: "8080"
+    depends_on:
+      - postgres
+      - kafka
+    ports:
+      - "8080:8080"
+  test:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+      target: builder
+    environment:
+      DATABASE_URL: postgres://user:password@postgres:5432/inventory?sslmode=disable
+      KAFKA_BROKER: kafka:9092
+      KAFKA_TOPIC: stock-events
+    depends_on:
+      - postgres
+      - kafka
+    command: go test -v ./tests/...
