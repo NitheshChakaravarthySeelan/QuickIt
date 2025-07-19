@@ -1,0 +1,22 @@
+# Go binaries
+# The compiled executable for your application.
+/inventory-write
+*.exe
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go vendor directory
+# This is where `go mod vendor` places dependencies.
+vendor/
+
+# Environment files
+# These often contain secrets and should not be committed to version control.
+.env
+
+# IDE/Editor specific files
+.vscode/
+.idea/
