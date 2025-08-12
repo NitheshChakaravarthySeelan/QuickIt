@@ -4,7 +4,11 @@ version = "0.1.0"
 description = "Syncs the stock from ERP warehouse to inventory system"
 authors = ["Nithesh Chakaravarthy Seelan"]
 readme = "README.md"
-packages = [{include = "internal"},{include = "cmd"}, {include = "tests"}]
+packages = [
+    {include = "internal", from = "src"},
+    {include = "cmd", from = "src"},
+    {include = "tests", from = "src"},
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"

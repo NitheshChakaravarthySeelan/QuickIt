@@ -11,7 +11,7 @@ COPY . .
 FROM python:3.11-slim AS runtime
 
 WORKDIR /app
-ENV PYTHONPATH=/app
+ENV PYTHONPATH=/app/src
 
 COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
@@ -19,4 +19,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Export 
 EXPOSE 8000
 
-CMD ["python","cmd/run_sync.py"]
+CMD ["python","src/cmd/run_sync.py"]
