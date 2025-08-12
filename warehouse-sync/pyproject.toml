@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "warehouse-sync"
+version = "0.1.0"
+description = "Syncs the stock from ERP warehouse to inventory system"
+authors = ["Nithesh Chakaravarthy Seelan"]
+readme = "README.md"
+packages = [{include = "internal"},{include = "cmd"}, {include = "tests"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aiohttp = "^3.9.5"
+prometheus-client = "^0.20.0"
+kafka-python = "^2.0.2"
+sqlalchemy = "^2.0.30"
+asyncpg = "^0.29.0"
+pydantic = "^2.7.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.2"
+pytest-asyncio = "^0.23.6"
+aioresponses = "^0.7.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
